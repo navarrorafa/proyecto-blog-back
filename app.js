@@ -8,12 +8,17 @@ const cors = require('cors');
 const cookieParser = require("cookie-parser")
 /**  conectar banco de dados*/
 const {dbConnect} = require('./utils/connection')
+/** */
+const bodyParser = require('body-parser');
 
 /**Requiro dotenv para poder acessar las variables de entorno */
 require('dotenv').config();
 
 /** */
 const app = express();
+
+//PORT
+const port = process.env.PORT
 
 /**conecto con la BBDD */
 dbConnect();
@@ -32,6 +37,9 @@ app.use(express.json())
 
 
 //RUTAS
+
+app.use("/api/v1/news", require("./routes/newsRoutes"));
+
 
 
 
