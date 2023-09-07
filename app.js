@@ -40,6 +40,8 @@ app.use(express.json())
 
 app.use("/api/v1/news", require("./routes/newsRoutes"));
 
+app.use("/api/v1/users", require("./routes/userRoutes"));
+
 
 
 

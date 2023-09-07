@@ -2,11 +2,17 @@
 const { Schema, model } = require("mongoose");
 
 const newsSchema = new Schema({
-    title: {
+    title:{
         type: String,
         require: true,
         min: 5,
         max: 50
+    },
+    resume : {
+        type: String ,
+        require: true ,
+        min: 5 ,
+        max: 100
     },
     text: {
         type: String,

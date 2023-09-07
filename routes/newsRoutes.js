@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const {allNews,newCreate,deleteNews,refreshNews} = require("../controllers/newController");
+// const { checkUserRole } = require('../middleware/authMiddleware');
+const {validarJWT}  = require('../middleware/validatorJWT')
 
 //GET TODAS 
 router.get("/",allNews);
@@ -8,10 +10,10 @@ router.get("/",allNews);
 // GET UNA 
 
 //POST CREAR
-router.post("/",newCreate);
+router.post("/",validarJWT, newCreate);
 
 //PUT EDITAR 
-router.put("/:id", refreshNews)
+router.put("/:id",validarJWT, refreshNews)
 
 
 // DELETE 
