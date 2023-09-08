@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const validarJWT = (req, res, next) => {
   // Obtenha o token JWT do cookie ou cabeçalho da solicitação
-  const token = req.cookies.miToken || req.header('x-auth-token');
+  const token = req.cookies.miToken || req.headers['x-auth-token'];
 
   // Verifique se o token existe
   if (!token) {

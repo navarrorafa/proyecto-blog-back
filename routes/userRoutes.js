@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {createUser,getAllUsers,getUserById,updateUserById,deleteUserById,loginUser,renewToken} = require('../controllers/userControllers');
-const {validarJWT} = require('../middleware/validatorJWT')
+const {validarJWT} = require('../middleware/validatorJWT');
+
 
 // Rota para fazer login
-router.post('/login',validarJWT, loginUser);
+router.post('/login',loginUser);
 
 // Rota para renovar o token
 router.get('/renew', validarJWT, renewToken);

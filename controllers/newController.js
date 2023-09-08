@@ -4,68 +4,11 @@ const jwt = require('jsonwebtoken');
 const  {uploadImagem} = require('../utils/uploadUtils')
 
 //POST CREAR NOTICIAS
-// const newCreate = async (req, res) => {
-//     try {
-
-//       // Requer o token da cookie
-//       const token =  req.header('x-auth-token');
-  
-//       // Verifica se existe cookie
-//       if (!token) {
-//         return res.status(401).json({
-//           ok: false,
-//           msg: 'Acesso não autorizado',
-//         });
-//       }
-  
-//       // Decodifica o token
-//       const decoded = jwt.verify(token, process.env.SECRET_KEY);
-//       console.log(decoded)
-//       console.log(decoded.role)
-  
-//       // Verifica se o usuário é um editor
-//       if (decoded.role === 'editor') {
-//         const newBlog = new New(req.body);
-//         const { title } = newBlog;
-  
-//         // Verifica se a notícia já existe pelo título
-//         const existe = await New.findOne({ title: title });
-  
-//         if (existe) {
-//           return res.status(400).json({
-//             msg: 'Notícia existente ou publicada',
-//           });
-//         }
-  
-//         // Crie a notícia
-//         const saveNews = await newBlog.save();
-  
-//         return res.status(201).json({
-//           ok: true,
-//           msg: 'Notícia criada com sucesso',
-//           news: saveNews,
-//         });
-//       } else {
-//         // Se o usuário não for um editor, retorne um erro de acesso não autorizado
-//         return res.status(403).json({
-//           ok: false,
-//           msg: 'Apenas editores podem criar notícias',
-//         });
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       return res.status(500).json({
-//         ok: false,
-//         msg: 'Entre em contato com o administrador',
-//       });
-//     }
-//   };
-
 const newCreate = async (req, res) => {
     try {
       // Requer o token da cookie
-      const token = req.header('x-auth-token');
-  
+      const token = req.headers['x-auth-token'];
+      console.log(token)
       // Verifica se existe cookie
       if (!token) {
         return res.status(401).json({
@@ -76,8 +19,7 @@ const newCreate = async (req, res) => {
   
       // Decodifica o token
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
-      console.log(decoded);
-      console.log(decoded.role);
+     
   
       // Verifica se o usuário é um editor
       if (decoded.role === 'editor') {
@@ -87,7 +29,7 @@ const newCreate = async (req, res) => {
           text: req.body.text,
           resume: req.body.resume,
           author: req.body.author,
-          image: req.body.image, // Aqui está o nome do arquivo da imagemfile.filename
+          image: req.body.image,
         });
         const { title } = newBlog;
   
@@ -125,7 +67,6 @@ const newCreate = async (req, res) => {
   };
   
   
-
 //POST UPDATE
 const refreshNews = async(req,res) => {
     const id = await req.params.id;
@@ -179,6 +120,8 @@ const refreshNews = async(req,res) => {
 
 
 
+
+
 //GET TODAS
 const allNews = async (req,res) => {
     try {
@@ -196,6 +139,7 @@ const allNews = async (req,res) => {
         })
     };
 };
+
 
 //GET NOMBRE
 const nombreNews = async (req,res) => {

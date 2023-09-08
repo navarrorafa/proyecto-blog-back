@@ -24,7 +24,10 @@ const port = process.env.PORT
 dbConnect();
 
 //CORS
-app.use(cors());
+app.use(cors({   
+        origin: 'http://localhost:8000', // La ruta del front
+        credentials: true, // Permite o uso de cookies
+}));
 
 //COOKIEPARSER
 app.use(cookieParser());

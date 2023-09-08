@@ -142,6 +142,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
   
     try {
+        // console.log('Recebida uma solicitação de login')
       let user = await User.findOne({ email: email });
        console.log(user)
       if (!user) {
@@ -166,10 +167,13 @@ const loginUser = async (req, res) => {
      
   
     //   Configurar o token em um cookie usando o cookie-parser
-      res.cookie('miToken', token, {
-        httpOnly: true, // A cookie só pode ser acessada por meio de solicitações HTTP
-        maxAge: 12 * 60 * 60 * 1000, // Tempo de vida do cookie em milissegundos (por exemplo, 12 horas)
+    res.cookie('miToken', token, {
+        httpOnly: true,
+        //secure: true, // Somente se o frontend estiver sendo servido por HTTPS
+        sameSite: 'none', // Envia cookei a servidores distintos
+        maxAge: 12 * 60 * 60 * 1000, //12h
       });
+      console.log('Cookie de autenticação definido com sucesso:', token);
   
       res.status(200).json({
         ok: true,
